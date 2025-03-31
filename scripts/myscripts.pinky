@@ -1,0 +1,13 @@
+ no debe verse
+
+pi := 3.141592
+
+x := 8.23
+
+if x >= 0 then 
+    println("x is positive")
+else
+    PRINTLN("x is negative")
+end
+
+'this is a stirng that doe not end'

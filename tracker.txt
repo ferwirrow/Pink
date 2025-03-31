@@ -1,0 +1,9 @@
+--- 16 single character === DONE
+--- 17 ignoring whitespace === DONE
+--- 18 scaning equals === DONE
+--- 19 scaning two char === DONE
+--- 20 scaning numbers === DONE
+--- 21 scaning strings === DONE
+--- 22 identifiying keywords === DONE
+---23 scanning as line comment ===DONE
+--- 24 Multiline comments ===DONE
