@@ -9,6 +9,8 @@ class Lexer:
         self.line = 1
 
     def advance(self):
+        if self.curr >= len(self.source):
+            return "\0"
         ch = self.source[self.curr]
         self.curr = self.curr + 1
         return ch
@@ -19,7 +21,7 @@ class Lexer:
         return self.source[self.curr]
     
     def lookahead(self, n=1):
-        if self.curr >= len(self.source):
+        if self.curr + 1 >= len(self.source):
             return "\0"
         return self.source[self.curr + n]
     
@@ -73,7 +75,7 @@ class Lexer:
             ch = self.advance()
 
             if ch == "\n": self.line = self.line + 1
-            elif ch == "\ ": pass
+            elif ch == " ": pass
             elif ch == "\t": pass
             elif ch == "\r": pass
             
@@ -94,7 +96,14 @@ class Lexer:
                     self.add_token(TOK_MINUS)
             elif ch == "*": self.add_token(TOK_STAR)
             elif ch == "^": self.add_token(TOK_PLUS)
-            elif ch == "/": self.add_token(TOK_SLASH)
+            elif ch == "/":
+                if self.match("*"):
+                    while self.peek() != "*" and self.lookahead() != "/" and self.curr < len(self.source):  #multiline comments
+                        self.advance()
+                    self.advance()
+                    self.advance()
+                else:
+                    self.add_token(TOK_SLASH)
             elif ch == ";": self.add_token(TOK_SEMICOLON)
             elif ch == "?": self.add_token(TOK_QUESTION)
             elif ch == "%": self.add_token(TOK_MOD)
